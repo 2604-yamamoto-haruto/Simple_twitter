@@ -28,10 +28,12 @@
 				<c:out value="${loginUser.name}" />
 			</h2>
 		</div>
-		<div class="account">
-			@
-			<c:out value="${loginUser.account}" />
-		</div>
+		<span class="account"> <a
+			href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
+					value="${message.account}" />
+		</a>
+		</span>
+
 		<div class="description">
 			<c:out value="${loginUser.description}" />
 		</div>
