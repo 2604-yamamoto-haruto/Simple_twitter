@@ -183,7 +183,7 @@ public class UserDao {
 			sql.append("    account = ?, ");
 			sql.append("    name = ?, ");
 			sql.append("    email = ?, ");
-			if(StringUtils.isEmpty(user.getPassword())) {
+			if(StringUtils.isBlank(user.getPassword())) {
 				sql.append("    password = ?, ");
 			}
 			sql.append("    description = ?, ");
@@ -195,7 +195,7 @@ public class UserDao {
 			ps.setString(1, user.getAccount());
 			ps.setString(2, user.getName());
 			ps.setString(3, user.getEmail());
-			if(StringUtils.isEmpty(user.getPassword())) {
+			if(StringUtils.isBlank(user.getPassword())) {
 				ps.setString(4, user.getPassword());
 				ps.setString(5, user.getDescription());
 				ps.setInt(6, user.getId());
