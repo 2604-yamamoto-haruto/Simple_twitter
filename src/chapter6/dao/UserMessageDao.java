@@ -29,7 +29,6 @@ public class UserMessageDao {
 	public UserMessageDao() {
 		InitApplication application = InitApplication.getInstance();
 		application.init();
-
 	}
 
 	public List<UserMessage> select(Connection connection, Integer userId, int num) {
@@ -50,14 +49,16 @@ public class UserMessageDao {
 			sql.append("FROM messages ");
 			sql.append(" INNER JOIN users ");
 			sql.append("ON messages.user_id = users.id ");
-			if(userId == null) {
-			}else {
-				sql.append("WHERE messages.user_id = " + userId);
+			if(userId != null) {
+				sql.append("WHERE messages.user_id = ?" );
 			}
 			sql.append(" ORDER BY created_date DESC limit " + num);
 
-
 			ps = connection.prepareStatement(sql.toString());
+
+			if(userId != null) {
+				ps.setInt(1, userId);
+			}
 
 			ResultSet rs = ps.executeQuery();
 
@@ -72,7 +73,6 @@ public class UserMessageDao {
 	}
 
 	private List<UserMessage> toUserMessages(ResultSet rs) throws SQLException {
-
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());

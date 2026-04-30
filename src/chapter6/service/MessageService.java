@@ -18,12 +18,10 @@ import chapter6.logging.InitApplication;
 
 public class MessageService {
 
-
 	/**
 	 * ロガーインスタンスの生成
 	 */
 	Logger log = Logger.getLogger("twitter");
-
 	/**
 	 * デフォルトコンストラクタ
 	 * アプリケーションの初期化を実施する。
@@ -31,7 +29,6 @@ public class MessageService {
 	public MessageService() {
 		InitApplication application = InitApplication.getInstance();
 		application.init();
-
 	}
 
 	public void insert(Message message) {
@@ -58,8 +55,6 @@ public class MessageService {
 	}
 	public List<UserMessage> select(String userId) {
 
-
-
 		final int LIMIT_NUM = 1000;
 
 		Connection connection = null;
@@ -70,7 +65,6 @@ public class MessageService {
 				id = Integer.parseInt(userId);
 			}
 			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
-
 
 			return messages;
 		} catch (RuntimeException e) {
