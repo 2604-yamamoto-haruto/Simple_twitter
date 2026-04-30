@@ -22,7 +22,6 @@
 				<a href="logout">ログアウト</a>
 			</c:if>
 		</div>
-	</body>
 	<c:if test="${ not empty loginUser }">
 		<div class="profile">
 			<div class="name">
@@ -79,7 +78,6 @@
 			</div>
 		</c:forEach>
 	</div>
-	<body>
 		<div class="copyright">Copyright(c)yamamoto</div>
 	</body>
 </html>
