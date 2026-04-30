@@ -11,19 +11,18 @@
 		<title>簡易Twitter</title>
 	</head>
 	<body>
-		<div class="copyright">Copyright(c)yamamoto</div>
+		<div class="header">
+			<c:if test="${ empty loginUser }">
+				<a href="login">ログイン</a>
+				<a href="signup">登録する</a>
+			</c:if>
+			<c:if test="${ not empty loginUser }">
+				<a href="./">ホーム</a>
+				<a href="setting">設定</a>
+				<a href="logout">ログアウト</a>
+			</c:if>
+		</div>
 	</body>
-	<div class="header">
-		<c:if test="${ empty loginUser }">
-			<a href="login">ログイン</a>
-			<a href="signup">登録する</a>
-		</c:if>
-		<c:if test="${ not empty loginUser }">
-			<a href="./">ホーム</a>
-			<a href="setting">設定</a>
-			<a href="logout">ログアウト</a>
-		</c:if>
-	</div>
 	<c:if test="${ not empty loginUser }">
 		<div class="profile">
 			<div class="name">
@@ -80,4 +79,7 @@
 			</div>
 		</c:forEach>
 	</div>
+	<body>
+		<div class="copyright">Copyright(c)yamamoto</div>
+	</body>
 </html>
