@@ -37,7 +37,7 @@ public class SettingServlet extends HttpServlet {
 		application.init();
 
 	}
-	
+
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,8 +54,8 @@ public class SettingServlet extends HttpServlet {
 		request.setAttribute("user", user);
 		request.getRequestDispatcher("setting.jsp").forward(request, response);
 	}
-	
-	
+
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -88,7 +88,7 @@ public class SettingServlet extends HttpServlet {
 		response.sendRedirect("./");
 	}
 
-	
+
 	private User getUser(HttpServletRequest request) throws IOException, ServletException {
 
 
@@ -105,7 +105,7 @@ public class SettingServlet extends HttpServlet {
 		return user;
 	}
 
-	
+
 	private boolean isValid(User user, List<String> errorMessages) {
 
 
@@ -124,8 +124,8 @@ public class SettingServlet extends HttpServlet {
 		} else if (20 < account.length()) {
 			errorMessages.add("アカウント名は20文字以下で入力してください");
 		}
-		User duplicate = new UserService().select(account);
-		if(duplicate != null && (duplicate.getId() != user.getId())) {
+		User duplicateUser = new UserService().select(account);
+		if(duplicateUser != null && (duplicateUser.getId() != user.getId())) {
 			errorMessages.add("アカウント名がすでに存在しています。");
 		}
 		if (StringUtils.isEmpty(email)) {
