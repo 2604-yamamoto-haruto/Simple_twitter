@@ -36,6 +36,7 @@ public class SignUpServlet extends HttpServlet {
 
 	}
 
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -45,6 +46,7 @@ public class SignUpServlet extends HttpServlet {
 
 		request.getRequestDispatcher("signup.jsp").forward(request, response);
 	}
+
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -66,6 +68,7 @@ public class SignUpServlet extends HttpServlet {
 		response.sendRedirect("./");
 	}
 
+
 	private User getUser(HttpServletRequest request) throws IOException, ServletException {
 
 
@@ -81,6 +84,7 @@ public class SignUpServlet extends HttpServlet {
 
 		return user;
 	}
+
 
 	private boolean isValid(User user, List<String> errorMessages) {
 
@@ -102,7 +106,8 @@ public class SignUpServlet extends HttpServlet {
 		} else if (20 < account.length()) {
 			errorMessages.add("アカウント名は20文字以下で入力してください");
 		}
-		if(new UserService().select(account) != null) {
+		User duplicate = new UserService().select(account);
+		if(duplicate != null) {
 			errorMessages.add("アカウント名がすでに存在しています。");
 		}
 

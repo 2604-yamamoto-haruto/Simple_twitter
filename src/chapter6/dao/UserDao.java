@@ -36,6 +36,7 @@ public class UserDao {
 
 	}
 
+	
 	public void insert(Connection connection, User user) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
@@ -78,6 +79,8 @@ public class UserDao {
 			close(ps);
 		}
 	}
+	
+	
 	public User select(Connection connection, String accountOrEmail, String password) {
 
 
@@ -113,6 +116,7 @@ public class UserDao {
 			close(ps);
 		}
 	}
+	
 
 	private List<User> toUsers(ResultSet rs) throws SQLException {
 
@@ -139,6 +143,8 @@ public class UserDao {
 			close(rs);
 		}
 	}
+	
+	
 	public User select(Connection connection, int id) {
 
 
@@ -171,6 +177,8 @@ public class UserDao {
 			close(ps);
 		}
 	}
+	
+	
 	public void update(Connection connection, User user) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
@@ -217,6 +225,8 @@ public class UserDao {
 			close(ps);
 		}
 	}
+	
+	
 	public User select(Connection connection, String account) {
 
 	    PreparedStatement ps = null;
