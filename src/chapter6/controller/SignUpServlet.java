@@ -78,6 +78,7 @@ public class SignUpServlet extends HttpServlet {
 		user.setPassword(request.getParameter("password"));
 		user.setEmail(request.getParameter("email"));
 		user.setDescription(request.getParameter("description"));
+
 		return user;
 	}
 
@@ -100,6 +101,9 @@ public class SignUpServlet extends HttpServlet {
 			errorMessages.add("アカウント名を入力してください");
 		} else if (20 < account.length()) {
 			errorMessages.add("アカウント名は20文字以下で入力してください");
+		}
+		if(new UserService().select(account) != null) {
+			errorMessages.add("アカウント名がすでに存在しています。");
 		}
 
 		if (StringUtils.isEmpty(password)) {
