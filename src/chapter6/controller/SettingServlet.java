@@ -41,10 +41,10 @@ public class SettingServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
@@ -58,10 +58,10 @@ public class SettingServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();
@@ -93,7 +93,7 @@ public class SettingServlet extends HttpServlet {
 
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		User user = new User();
 		user.setId(Integer.parseInt(request.getParameter("id")));
@@ -110,7 +110,7 @@ public class SettingServlet extends HttpServlet {
 
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		String name = user.getName();
 		String account = user.getAccount();

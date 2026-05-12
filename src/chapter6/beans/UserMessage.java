@@ -13,7 +13,7 @@ public class UserMessage implements Serializable {
 	private Date createdDate;
 
 	// getter/setterは省略されているので、自分で記述しましょう。
-	public int Id() {
+	public int getId() {
 		return id;
 	}
 	public void setId(int id) {

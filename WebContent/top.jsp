@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -66,15 +67,30 @@
 								<c:out value="${message.account}" />
 							</a>
 						</span>
-						<span class="name"><c:out value="${message.name}" /></span>
+						<span class="name"><c:out value="${message.name}"/></span>
 					</div>
 					<div class="text">
-						<c:out value="${message.text}" />
+						<pre><c:out value="${message.text}"/></pre>
+
 					</div>
 					<div class="date">
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
+					<c:if test="${ isShowMessageForm }" >
+						<c:if test="${message.name == loginUser.name }" >
+							<div class="MessageDeletingEdit">
+								<form action="deleteMessage" method="post">
+									<input type="hidden" name="DeleteId" value="${message.id}">
+									<input type="submit" value="削除">
+								</form>
+								<form action="edit" method="get">
+									<input type="hidden" name="Edit" value="${message.id}">
+									<input type="submit" value="編集" >
+								</form>
+							</div>
+						</c:if>
+					</c:if>
 				</div>
 			</c:forEach>
 		</div>

@@ -36,11 +36,11 @@ public class UserDao {
 
 	}
 
-	
+
 	public void insert(Connection connection, User user) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		PreparedStatement ps = null;
 		try {
@@ -79,13 +79,12 @@ public class UserDao {
 			close(ps);
 		}
 	}
-	
-	
+
+
 	public User select(Connection connection, String accountOrEmail, String password) {
 
-
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		PreparedStatement ps = null;
 		try {
@@ -104,7 +103,7 @@ public class UserDao {
 				return null;
 			} else if (2 <= users.size()) {
 				log.log(Level.SEVERE,"ユーザーが重複しています",
-						new IllegalStateException());
+				new IllegalStateException());
 				throw new IllegalStateException("ユーザーが重複しています");
 			} else {
 				return users.get(0);
@@ -116,7 +115,7 @@ public class UserDao {
 			close(ps);
 		}
 	}
-	
+
 
 	private List<User> toUsers(ResultSet rs) throws SQLException {
 
@@ -143,8 +142,8 @@ public class UserDao {
 			close(rs);
 		}
 	}
-	
-	
+
+
 	public User select(Connection connection, int id) {
 
 
@@ -177,8 +176,8 @@ public class UserDao {
 			close(ps);
 		}
 	}
-	
-	
+
+
 	public void update(Connection connection, User user) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
@@ -225,8 +224,8 @@ public class UserDao {
 			close(ps);
 		}
 	}
-	
-	
+
+
 	public User select(Connection connection, String account) {
 
 	    PreparedStatement ps = null;

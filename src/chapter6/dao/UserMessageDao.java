@@ -31,10 +31,11 @@ public class UserMessageDao {
 		application.init();
 	}
 
+
 	public List<UserMessage> select(Connection connection, Integer userId, int num) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		PreparedStatement ps = null;
 		try {
@@ -61,7 +62,6 @@ public class UserMessageDao {
 			}
 
 			ResultSet rs = ps.executeQuery();
-
 			List<UserMessage> messages = toUserMessages(rs);
 			return messages;
 		} catch (SQLException e) {
@@ -72,10 +72,11 @@ public class UserMessageDao {
 		}
 	}
 
+
 	private List<UserMessage> toUserMessages(ResultSet rs) throws SQLException {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		List<UserMessage> messages = new ArrayList<UserMessage>();
 		try {

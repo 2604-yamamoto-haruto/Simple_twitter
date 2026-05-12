@@ -29,14 +29,15 @@ public class LogoutServlet extends HttpServlet {
 
 	}
 
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		HttpSession session = request.getSession();
 
