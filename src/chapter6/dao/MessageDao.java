@@ -125,7 +125,7 @@ public class MessageDao {
 		}
 	}
 
-	public void editMessage(Connection connection, String editId, String editText) {
+	public void update(Connection connection, String editId, String editText) {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 

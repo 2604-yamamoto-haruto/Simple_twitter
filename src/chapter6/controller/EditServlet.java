@@ -94,7 +94,7 @@ public class EditServlet extends HttpServlet {
 			return;
 		}
 
-		new MessageService().editMessage(editId, editText);
+		new MessageService().update(editId, editText);
 		response.sendRedirect("./");
 	}
 
