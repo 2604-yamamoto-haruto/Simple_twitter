@@ -45,7 +45,7 @@
 		<div class="form-area">
 			<form action="edit" method="post">
 				編集<br />
-				<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${message.text}"/></textarea>
+				<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${editText != nll ?  editText:message.text}"/></textarea>
 				<input type="hidden" name="editId" value="${message.id}">
 				<br />
 				<input type="submit" value="更新">（140文字まで）
