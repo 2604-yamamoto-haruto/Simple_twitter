@@ -50,8 +50,7 @@ public class EditServlet extends HttpServlet {
 
 		String editId = request.getParameter("edit");
 
-
-		if(!StringUtils.isBlank(editId) && editId.matches("^[0-9]*$")) {
+		if(StringUtils.isBlank(editId) || !editId.matches("^[0-9]*$")) {
 			errorMessages.add("不正なパラメータが入力されました");
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");
@@ -68,7 +67,7 @@ public class EditServlet extends HttpServlet {
 		}
 
 		request.setAttribute("message", message);
-		request.getRequestDispatcher("/edit.jsp").forward(request, response);///
+		request.getRequestDispatcher("/edit.jsp").forward(request, response);
 	}
 
 
@@ -85,11 +84,10 @@ public class EditServlet extends HttpServlet {
 		String editId = request.getParameter("editId");
 		String editText = request.getParameter("text");
 
-
-
 		if (!isValid(editText, errorMessages)) {
 			request.setAttribute("errorMessages", errorMessages);
 			request.setAttribute("editText", editText);
+			request.setAttribute("editId", editId);
 			request.getRequestDispatcher("/edit.jsp").forward(request, response);
 			return;
 		}

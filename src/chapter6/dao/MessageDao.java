@@ -112,7 +112,7 @@ public class MessageDao {
 
 			List<Message> messages = toMessages(rs);
 
-			if(messages == null) {
+			if(messages.isEmpty()) {
 				return null;
 			}else {
 				return messages.get(0);

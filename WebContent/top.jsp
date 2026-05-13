@@ -78,7 +78,7 @@
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
 					<c:if test="${ isShowMessageForm }" >
-						<c:if test="${message.userId == loginUser. id}" >
+						<c:if test="${message.userId == loginUser.id}" >
 							<div class="messageDeletingEdit">
 								<form action="deleteMessage" method="post">
 									<input type="hidden" name="deleteId" value="${message.id}">
