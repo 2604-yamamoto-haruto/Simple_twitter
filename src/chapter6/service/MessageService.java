@@ -86,14 +86,14 @@ public class MessageService {
 		}
 	}
 
-	public void deleteMessage(String DeleteId) {
+	public void delete(String deleteId) {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new MessageDao().deleteMessage(connection, DeleteId);
+			new MessageDao().delete(connection, deleteId);
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
@@ -107,15 +107,15 @@ public class MessageService {
 		}
 	}
 
-	public String message(String EditId) {
+	public Message editSelect(String editId) {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			String message = new MessageDao().Message(connection, EditId);
-			return message;
+			Message messages = new MessageDao().select(connection, editId);
+			return messages;
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
@@ -130,36 +130,14 @@ public class MessageService {
 	}
 
 
-	public void editMessage(String EditId, String EditText) {
+	public void editMessage(String editId, String editText) {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new MessageDao().editMessage(connection, EditId, EditText);
-		} catch (RuntimeException e) {
-			rollback(connection);
-			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
-			throw e;
-		} catch (Error e) {
-			rollback(connection);
-			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
-			throw e;
-		} finally {
-			close(connection);
-		}
-	}
-
-	public String check(String EditId) {
-		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
-
-		Connection connection = null;
-		try {
-			connection = getConnection();
-			String check = new MessageDao().check(connection, EditId);
-			return check;
+			new MessageDao().editMessage(connection, editId, editText);
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);

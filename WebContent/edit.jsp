@@ -43,15 +43,13 @@
 		</c:if>
 
 		<div class="form-area">
-			<c:if test="${ isShowMessageForm}">
-				<form action="edit" method="post">
-					編集<br />
-					<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${text}"/></textarea>
-					<input type="hidden" name="EditId" value="${id}">
-					<br />
-					<input type="submit" value="更新">（140文字まで）
-				</form>
-			</c:if>
+			<form action="edit" method="post">
+				編集<br />
+				<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${message.text}"/></textarea>
+				<input type="hidden" name="editId" value="${message.id}">
+				<br />
+				<input type="submit" value="更新">（140文字まで）
+			</form>
 		</div>
 		<div class="copyright">Copyright(c)yamamoto</div>
 	</body>

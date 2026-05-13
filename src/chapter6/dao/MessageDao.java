@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,7 +68,7 @@ public class MessageDao {
 		}
 	}
 
-	public void deleteMessage(Connection connection, String DeleteId) {
+	public void delete(Connection connection, String deleteId) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -75,11 +77,11 @@ public class MessageDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append(" DELETE FROM messages WHERE ");
-			sql.append(" id = ?;");
+			sql.append(" id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, DeleteId);
+			ps.setString(1, deleteId);
 
 			ps.executeUpdate();
 			connection.commit();
@@ -91,7 +93,7 @@ public class MessageDao {
 		}
 	}
 
-	public String Message(Connection connection, String EditId) {
+	public Message select(Connection connection, String editId) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -99,16 +101,22 @@ public class MessageDao {
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append(" SELECT text FROM messages WHERE ");
-			sql.append(" id = ?;");
+			sql.append(" SELECT * FROM messages WHERE ");
+			sql.append(" id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, EditId);
+			ps.setString(1, editId);
 
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			return rs.getString("text");
+
+			List<Message> messages = toMessages(rs);
+
+			if(messages == null) {
+				return null;
+			}else {
+				return messages.get(0);
+			}
 		}catch (SQLException e) {
 			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
 			throw new SQLRuntimeException(e);
@@ -117,7 +125,7 @@ public class MessageDao {
 		}
 	}
 
-	public void editMessage(Connection connection, String EditId, String EditText) {
+	public void editMessage(Connection connection, String editId, String editText) {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
@@ -125,13 +133,14 @@ public class MessageDao {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE messages SET ");
-			sql.append(" text = ? ");
-			sql.append("WHERE id = ?;");
+			sql.append(" text = ?, ");
+			sql.append(" updated_date = CURRENT_TIMESTAMP");
+			sql.append(" WHERE id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, EditText);
-			ps.setString(2, EditId);
+			ps.setString(1, editText);
+			ps.setString(2, editId);
 
 			ps.executeUpdate();
 			connection.commit();
@@ -143,34 +152,27 @@ public class MessageDao {
 		}
 	}
 
-	public String check(Connection connection, String EditId) {
+	private List<Message> toMessages(ResultSet rs) throws SQLException {
+
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-		PreparedStatement ps = null;
+		List<Message> messages = new ArrayList<Message>();
 		try {
-			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT id FROM messages WHERE");
-			sql.append(" id = ?");
+			while (rs.next()) {
+				Message message = new Message();
+				message.setId(rs.getInt("id"));
+				message.setUserId(rs.getInt("user_id"));
+				message.setText(rs.getString("text"));
+				message.setCreatedDate(rs.getTimestamp("created_date"));
+				message.setUpdatedDate(rs.getTimestamp("updated_date"));
 
-			ps = connection.prepareStatement(sql.toString());
-
-			ps.setString(1, EditId);
-
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			String check = null;
-			if(rs.getRow() != 0) {
-				check = rs.getString(1);
+				messages.add(message);
 			}
-			return check;
-
-		}catch (SQLException e) {
-				log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
-				throw new SQLRuntimeException(e);
-			} finally {
-				close(ps);
-			}
-
+			return messages;
+		} finally {
+			close(rs);
+		}
 	}
+
 }

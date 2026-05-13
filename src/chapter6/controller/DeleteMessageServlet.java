@@ -38,7 +38,7 @@ public class DeleteMessageServlet extends HttpServlet{
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-		new MessageService().deleteMessage(request.getParameter("DeleteId"));
+		new MessageService().delete(request.getParameter("deleteId"));
 		response.sendRedirect("./");
 	}
 }

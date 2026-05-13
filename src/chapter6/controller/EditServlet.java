@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
+import chapter6.beans.Message;
 import chapter6.logging.InitApplication;
 import chapter6.service.MessageService;
 
@@ -46,29 +47,28 @@ public class EditServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();
-		boolean isShowMessageForm = true;
 
-		String EditId = request.getParameter("Edit");
-		String check = new MessageService().check(EditId);
+		String editId = request.getParameter("edit");
 
-		if(!EditId.matches("^[0-9]*$")) {
-			errorMessages.add("不正なパラメータが入力されました");
-			session.setAttribute("errorMessages", errorMessages);
-			response.sendRedirect("./");
-			return;
-		}else if(!EditId.equals(check)) {
+
+		if(!editId.matches("^[0-9]*$") && editId.isEmpty()) {
 			errorMessages.add("不正なパラメータが入力されました");
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");
 			return;
 		}
 
-		String message = new MessageService().message(EditId);
+		Message message = new MessageService().editSelect(editId);
 
-		request.setAttribute("text", message);
-		request.setAttribute("id", EditId);
-		request.setAttribute("isShowMessageForm", isShowMessageForm);
-		request.getRequestDispatcher("/edit.jsp").forward(request, response);
+		if(message == null) {
+			errorMessages.add("不正なパラメータが入力されました");
+			session.setAttribute("errorMessages", errorMessages);
+			response.sendRedirect("./");
+			return;
+		}
+
+		request.setAttribute("message", message);
+		request.getRequestDispatcher("/edit.jsp").forward(request, response);///
 	}
 
 
@@ -83,16 +83,18 @@ public class EditServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();
 
-		String EditId = request.getParameter("EditId");
-		String EditText = request.getParameter("text");
+		String editId = request.getParameter("editId");
+		String editText = request.getParameter("text");
 
-		if (!isValid(EditText, errorMessages)) {
+
+
+		if (!isValid(editText, errorMessages)) {
 			session.setAttribute("errorMessages", errorMessages);
-			response.sendRedirect("./edit?Edit=" + EditId);
+			request.getRequestDispatcher("/edit.jsp").forward(request, response);
 			return;
 		}
 
-		new MessageService().editMessage(EditId, EditText);
+		new MessageService().editMessage(editId, editText);
 		response.sendRedirect("./");
 	}
 

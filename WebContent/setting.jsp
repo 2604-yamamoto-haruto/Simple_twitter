@@ -25,7 +25,7 @@
 				<br />
 				<input name="id" value="${user.id}" id="id" type="hidden" />
 				<label for="name">名前</label>
-				<input name="name" value="${user.name}" id="name" />（名前はあなたの公開プロフィールに表示されます
+				<input name="name" value="${user.name}" id="name" />（名前はあなたの公開プロフィールに表示されます）
 				<br />
 				<label for="account">アカウント名</label>
 				<input name="account" value="${user.account}" />
