@@ -53,19 +53,19 @@ public class LoginServlet extends HttpServlet {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 			" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
+		HttpSession session = request.getSession();
 		String accountOrEmail = request.getParameter("accountOrEmail");
 		String password = request.getParameter("password");
-
+		List<String> errorMessages = new ArrayList<String>();
 		User user = new UserService().select(accountOrEmail, password);
+
 		if (user == null) {
-			List<String> errorMessages = new ArrayList<String>();
 			errorMessages.add("ログインに失敗しました");
 			request.setAttribute("errorMessages", errorMessages);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 			return;
 		}
 
-		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", user);
 		response.sendRedirect("./");
 	}

@@ -23,6 +23,15 @@
 				<a href="logout">ログアウト</a>
 			</c:if>
 		</div>
+		<div class="squeeze">
+			<form action="./?start=<c:out value="${start}"/>&end=<c:out value="${end}"/>" method="get">
+				<h4>日付</h4>
+				<input type="date" name="start" value="<c:out value="${startDate}"/>">
+				～
+				<input type="date" name="end" value="<c:out value="${endDate}"/>">
+				<input type="submit" value="絞込">
+			</form>
+		</div>
 		<c:if test="${ not empty loginUser }">
 			<div class="profile">
 				<div class="name">
@@ -90,6 +99,33 @@
 								</form>
 							</div>
 						</c:if>
+						<div class="comment">
+							<form action="comment" method="post">
+								返信<br />
+								<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
+								<input type="hidden" name="commentId" value="${message.id}">
+								<br /> <input type="submit" value="つぶやく">（140文字まで）
+							</form>
+							<c:forEach items="${comments}" var="comments">
+								<c:if test="${message.id == comments.messageId}">
+									<div class="comment">
+										<div class="account-name">
+											<span class="account">
+												<c:out value="${comments.account}" />
+											</span>
+											<span class="name"><c:out value="${comments.name}"/></span>
+										</div>
+										<div class="text">
+											<pre><c:out value="${comments.text}"/></pre>
+										</div>
+										<div class="date">
+											<fmt:formatDate value="${comments.createdDate}"
+												pattern="yyyy/MM/dd HH:mm:ss" />
+										</div>
+									</div>
+								</c:if>>
+							</c:forEach>
+						</div>
 					</c:if>
 				</div>
 			</c:forEach>
