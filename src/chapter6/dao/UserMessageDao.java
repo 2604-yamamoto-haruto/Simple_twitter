@@ -54,7 +54,7 @@ public class UserMessageDao {
 			sql.append(" ? ");
 			sql.append(" AND ?");
 			if(userId != null) {
-				sql.append(" messages.user_id = ?");
+				sql.append(" AND messages.user_id = ?");
 			}
 
 			sql.append(" ORDER BY created_date DESC limit " + num);

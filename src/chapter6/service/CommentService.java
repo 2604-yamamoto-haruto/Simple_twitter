@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import chapter6.beans.Comment;
 import chapter6.beans.UserComment;
+import chapter6.dao.CommentDao;
 import chapter6.dao.UserCommentDao;
 import chapter6.logging.InitApplication;
 
@@ -36,7 +37,7 @@ public class CommentService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new UserCommentDao().insert(connection, comment);
+			new CommentDao().insert(connection, comment);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);
