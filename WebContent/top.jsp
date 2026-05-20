@@ -24,7 +24,7 @@
 			</c:if>
 		</div>
 		<div class="squeeze">
-			<form action="./?start=<c:out value="${start}"/>&end=<c:out value="${end}"/>" method="get">
+			<form action="./" method="get">
 				<h4>日付</h4>
 				<input type="date" name="start" value="<c:out value="${startDate}"/>">
 				～
@@ -52,10 +52,10 @@
 				<ul>
 					<c:forEach items="${errorMessages}" var="errorMessage">
 						<li><c:out value="${errorMessage}" />
+						<c:remove var="errorMessages" scope="session" />
 					</c:forEach>
 				</ul>
 			</div>
-			<c:remove var="errorMessages" scope="session" />
 		</c:if>
 
 		<div class="form-area">
@@ -106,24 +106,24 @@
 								<input type="hidden" name="commentId" value="${message.id}">
 								<br /> <input type="submit" value="つぶやく">（140文字まで）
 							</form>
-							<c:forEach items="${comments}" var="comments">
-								<c:if test="${message.id == comments.messageId}">
+							<c:forEach items="${userComment}" var="userComment">
+								<c:if test="${message.id == userComment.messageId}">
 									<div class="comment">
 										<div class="account-name">
 											<span class="account">
-												<c:out value="${comments.account}" />
+												<c:out value="${userComment.account}" />
 											</span>
-											<span class="name"><c:out value="${comments.name}"/></span>
+											<span class="name"><c:out value="${userComment.name}"/></span>
 										</div>
 										<div class="text">
-											<pre><c:out value="${comments.text}"/></pre>
+											<pre><c:out value="${userComment.text}"/></pre>
 										</div>
 										<div class="date">
-											<fmt:formatDate value="${comments.createdDate}"
+											<fmt:formatDate value="${userComment.createdDate}"
 												pattern="yyyy/MM/dd HH:mm:ss" />
 										</div>
 									</div>
-								</c:if>>
+								</c:if>
 							</c:forEach>
 						</div>
 					</c:if>

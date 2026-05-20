@@ -2,7 +2,7 @@ package chapter6.beans;
 
 import java.util.Date;
 
-public class CommentUser {
+public class UserComment {
 
 	private int id;
 	private int userId;

@@ -9,8 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import chapter6.beans.Comment;
-import chapter6.beans.CommentUser;
-import chapter6.dao.CommentDao;
+import chapter6.beans.UserComment;
+import chapter6.dao.UserCommentDao;
 import chapter6.logging.InitApplication;
 
 public class CommentService {
@@ -36,7 +36,7 @@ public class CommentService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new CommentDao().insert(connection, comment);
+			new UserCommentDao().insert(connection, comment);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -51,7 +51,7 @@ public class CommentService {
 		}
 	}
 
-	public List<CommentUser> select() {
+	public List<UserComment> select() {
 
 		  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 	        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -61,7 +61,7 @@ public class CommentService {
 	        Connection connection = null;
 	        try {
 	            connection = getConnection();
-	            List<CommentUser> commentuser = new CommentDao().select(connection, LIMIT_NUM);
+	            List<UserComment> commentuser = new UserCommentDao().select(connection, LIMIT_NUM);
 	            commit(connection);
 
 	            return commentuser;

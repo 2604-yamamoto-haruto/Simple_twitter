@@ -12,11 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import chapter6.beans.Comment;
-import chapter6.beans.CommentUser;
+import chapter6.beans.UserComment;
 import chapter6.exception.SQLRuntimeException;
 import chapter6.logging.InitApplication;
 
-public class CommentDao {
+public class UserCommentDao {
 	/**
 	 * ロガーインスタンスの生成
 	 */
@@ -26,7 +26,7 @@ public class CommentDao {
 	 * デフォルトコンストラクタ
 	 * アプリケーションの初期化を実施する。
 	 */
-	public CommentDao() {
+	public UserCommentDao() {
 		InitApplication application = InitApplication.getInstance();
 		application.init();
 
@@ -70,7 +70,7 @@ public class CommentDao {
 		}
 	}
 
-	public List<CommentUser> select(Connection connection, int num) {
+	public List<UserComment> select(Connection connection, int num) {
 
 		  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 	        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -95,7 +95,7 @@ public class CommentDao {
 
 	            ResultSet rs = ps.executeQuery();
 
-	            List<CommentUser> comments = toComenntUsers(rs);
+	            List<UserComment> comments = toUserComment(rs);
 	            return comments;
 	        } catch (SQLException e) {
 			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
@@ -105,27 +105,26 @@ public class CommentDao {
 	        }
 	    }
 
-	    private List<CommentUser> toComenntUsers(ResultSet rs) throws SQLException {
-
+	    private List<UserComment> toUserComment(ResultSet rs) throws SQLException {
 
 		  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 	        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-	        List<CommentUser> commentUsers = new ArrayList<CommentUser>();
+	        List<UserComment> userComments = new ArrayList<UserComment>();
 	        try {
 	            while (rs.next()) {
-	                CommentUser commentUser = new CommentUser();
-	                commentUser.setId(rs.getInt("id"));
-	                commentUser.setText(rs.getString("text"));
-	                commentUser.setUserId(rs.getInt("user_id"));
-	                commentUser.setMessageId(rs.getInt("message_id"));
-	                commentUser.setAccount(rs.getString("account"));
-	                commentUser.setName(rs.getString("name"));
-	                commentUser.setCreatedDate(rs.getTimestamp("created_date"));
+	            	UserComment userComment = new UserComment();
+	            	userComment.setId(rs.getInt("id"));
+	            	userComment.setText(rs.getString("text"));
+	            	userComment.setUserId(rs.getInt("user_id"));
+	            	userComment.setMessageId(rs.getInt("message_id"));
+	            	userComment.setAccount(rs.getString("account"));
+	            	userComment.setName(rs.getString("name"));
+	            	userComment.setCreatedDate(rs.getTimestamp("created_date"));
 
-	                commentUsers.add(commentUser);
+	                userComments.add(userComment);
 	            }
-	            return commentUsers;
+	            return userComments;
 	        } finally {
 	            close(rs);
 	        }

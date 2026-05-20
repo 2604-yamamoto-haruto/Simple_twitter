@@ -75,13 +75,13 @@ public class MessageService {
 			if(!StringUtils.isEmpty(userId)) {
 				id = Integer.parseInt(userId);
 			}
-			SimpleDateFormat dateFormat = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss");
-			if(start != null && !StringUtils.isBlank(start)) {
-					startDate = start + " 00:00:00";
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			if(!StringUtils.isBlank(start)) {
+				startDate = start + " 00:00:00";
 			}else {
 				startDate = "2020-01-01 00:00:00";
 			}
-			if(end != null && !StringUtils.isBlank(end)) {
+			if(!StringUtils.isBlank(end)) {
 				endDate = end + " 23:59:59";
 			}else {
 				Date now = new Date();
